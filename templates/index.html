@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Login Page </title>
+    <style>
+        Body {
+            font-family: Calibri, Helvetica, sans-serif;
+            background-color: pink;
+        }
+
+        button {
+            background-color: #4CAF50;
+            width: 100%;
+            color: orange;
+            padding: 15px;
+            margin: 10px 0px;
+            border: none;
+            cursor: pointer;
+        }
+
+        form {
+            border: 3px solid #f1f1f1;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px 20px;
+            display: inline-block;
+            border: 2px solid green;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            opacity: 0.7;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            margin: 10px 5px;
+        }
+
+
+        .container {
+            padding: 25px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1> Student Login Form </h1>
+    </center>
+    <div class="container">
+        <form onsubmit="event.preventDefault(); sendLogin();">
+            <label>Username : </label>
+            <input type="text" placeholder="Enter Username" id="username" name="username" required>
+            <label>Password : </label>
+            <input type="password" placeholder="Enter Password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        function sendLogin() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:80/login', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+
+            // Define a function to handle the response
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Request was successful, do something with the response
+                        console.log(xhr.responseText);
+                    } else {
+                        // There was an error with the request
+                        console.error('Request failed with status:', xhr.status);
+                    }
+                }
+            };
+
+            // Send the request
+            var payload = JSON.stringify({ username: username, password: password });
+            xhr.send(payload);
+        }
+    </script>
+        }
+    </script>
+</body>
+
+</html>
